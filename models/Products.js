@@ -1,25 +1,53 @@
 const { default: mongoose } = require("mongoose");
+const { ObjectId } = mongoose.Schema;
 
 const produtSchema = mongoose.Schema({
-    productName: {
+    name: {
         type: String,
         required: true
     },
+    image: {
+        type: String,
+        required: true
+    },
+    brand: {
+        type: String,
+        required: true
+    },
+    quantity: {
+        type: Number,
+        required: true
+    },
+    category: {
+        type: ObjectId , ref: "Category",
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    // reviews: [reviewSchema],
+    rating: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    numReviews: {
+        type: Number,
+        required: true,
+        default: 0
+    },
     price: {
         type: Number,
-        required: true
+        required: true,
+        default: 0
     },
-    stock: {
+    countInStock: {
         type: Number,
-        required: true
+        required: true,
+        default: 0
     },
-    details: {
-        type: String
-    },
-    imgLink: {
-        type: Array,
-        required: true
-    }
-})
+},
+    { timestamps: true })
 
 module.exports = mongoose.model('Products', produtSchema)

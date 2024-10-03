@@ -13,7 +13,6 @@ const createUser = expressAsyncHandler(async (req, res) => {
 
     const isDuplicate = await User.findOne({ email: email }).lean().exec()
 
-    console.log(isDuplicate);
     if (isDuplicate) {
         return res.status(409).json({ message: 'User already exist' })
     }
@@ -133,8 +132,6 @@ const logOut = expressAsyncHandler((req, res) => {
 })
 
 const getAllUsers = expressAsyncHandler(async (req, res) => {
-    console.log('hi');
-
     const users = await User.find({});    
     res.json(users);
 });
@@ -157,7 +154,7 @@ const getCurrentUserProfile = expressAsyncHandler(async (req, res) => {
 const updateCurrentUserProfile = expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
 
-    console.log(user);
+    console.log(req);
     
 
     if (user) {
@@ -187,6 +184,8 @@ const updateCurrentUserProfile = expressAsyncHandler(async (req, res) => {
 const deleteUserById = expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
 
+    console.log(user);
+    
     if (user) {
         if (user.isAdmin) {
             res.status(400);
@@ -218,7 +217,6 @@ const updateUserById = expressAsyncHandler(async (req, res) => {
     if (user) {
         user.username = req.body.username || user.username;
         user.email = req.body.email || user.email;
-        user.isAdmin = Boolean(req.body.isAdmin);
 
         const updatedUser = await user.save();
 

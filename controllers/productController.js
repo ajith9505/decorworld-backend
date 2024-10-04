@@ -184,9 +184,4 @@ const filterProducts = expressAsyncHandler(async (req, res) => {
     updateProductDetails,
     removeProduct,
     filterProducts
-
-
-
-
-    
   }

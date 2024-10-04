@@ -17,9 +17,13 @@ router.route('/')
     .get(getAllProducts)
     .post(authenticate, authorizeAdmin, addProduct)
 
-router.route('/getproduct:id').get(getProductById)
-router.route('/getproducts').get(getProducts)
-router.route('/')
+    router.route('/getproducts').get(getProducts)
+
+router
+  .route("/:id")
+  .get(getProductById)
+  .put(authenticate, authorizeAdmin, updateProductDetails)
+  .delete(authenticate, authorizeAdmin, removeProduct);
 
 
 module.exports = router

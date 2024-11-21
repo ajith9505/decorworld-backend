@@ -8,7 +8,6 @@ const Product = require("../models/Products");
 const getAllProducts = expressAsyncHandler(async (req, res) => {
     try {
         const products = await Product.find({})
-            .populate("category")
             .limit(12)
             .sort({ createAt: -1 });
 
@@ -76,7 +75,7 @@ const getProductById = expressAsyncHandler(async (req, res) => {
 
 const addProduct = expressAsyncHandler(async (req, res) => {
     try {
-        const { name, description, price, category, quantity, brand } = req.data;
+        const { name, description, price, quantity, brand } = req.body;
 
         // input validation
         switch (true) {
@@ -88,15 +87,15 @@ const addProduct = expressAsyncHandler(async (req, res) => {
                 return res.json({ error: "Description is required" });
             case !price:
                 return res.json({ error: "Price is required" });
-            case !category:
-                return res.json({ error: "Category is required" });
+            // case !category:
+            //     return res.json({ error: "Category is required" });
             case !quantity:
                 return res.json({ error: "Quantity is required" });
         }
 
-        const product = new Product({ ...req.data });
+        const product = new Product({ ...req.body, countInStock: quantity });
         await product.save();
-        res.json(product);
+        res.json(`${product.name} added`);
     } catch (error) {
         console.error(error);
         res.status(400).json(error.message);

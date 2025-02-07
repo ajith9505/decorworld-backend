@@ -20,6 +20,7 @@ app.use(logger)
 app.use(cors(corsOrgin))
 
 app.use(express.json())
+app.use(express.urlencoded({extended: false}))
 
 app.use(cookieParser())
 

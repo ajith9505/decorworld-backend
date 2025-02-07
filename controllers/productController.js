@@ -45,7 +45,6 @@ const getProducts = expressAsyncHandler(async (req, res) => {
             hasMore: false,
         });
     } catch (error) {
-        console.error(error);
         res.status(500).json({ error: "Server Error" });
     }
 });

@@ -33,6 +33,7 @@ app.use('/user', require('./routes/userRoutes'))
 app.use('/product', require('./routes/productRoutes'))
 app.use('/conversation', require('./routes/conversationRoutes'))
 app.use('/order', require('./routes/paymentRoutes'))
+app.use('/getOrders', require('./routes/orderRoutes'))
 
 //bad requests
 app.all('*', (req, res) => {
